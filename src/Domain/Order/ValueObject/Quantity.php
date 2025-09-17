@@ -2,9 +2,15 @@
 namespace App\Domain\Order\ValueObject;
 
 
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Embeddable;
+
+#[Embeddable]
 class Quantity
 {
+    #[Column(type: 'float')]
     private float|int $value;
+    #[Column(type: 'boolean')]
     private bool $isWeighted;
 
 

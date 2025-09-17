@@ -1,8 +1,12 @@
 <?php
 namespace App\Domain\Shared;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Embeddable;
 
+#[Embeddable]
 final class Money
 {
+    #[Column(type: 'integer')]
     private int $cents;
 
     public function __construct(int $cents)
