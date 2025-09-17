@@ -50,7 +50,7 @@ class Order
 
     public function addLine(Product $product, Quantity $quantity): void
     {
-        if (!empty($this->invoices)) {
+        if (!empty($this->invoices())) {
             throw new \DomainException('Cannot modify order after invoice');
         }
         if (!$product->isWeighted() && (int)$quantity->value() !== $quantity->value()) {
@@ -74,10 +74,8 @@ class Order
     public function issueInvoice(string $invoiceId): Invoice
     {
         /** @var Invoice $inv */
-        foreach ($this->invoices as $inv)  {
-            if ($inv->isNew()) {
-                $inv->cancel();
-            }
+        foreach ($this->invoices as $inv) {
+            $inv->cancel();
         }
         $invoice = new Invoice(new InvoiceId($invoiceId), $this->total());
         $this->invoices[] = $invoice;

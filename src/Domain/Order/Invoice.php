@@ -48,7 +48,6 @@ class Invoice implements PaymentMethodInterface
 
     public function cancel(): void
     {
-        if ($this->isPaid()) throw new \DomainException('Cannot cancel paid invoice');
         $this->status = InvoiceStatus::cancelled();
     }
 
